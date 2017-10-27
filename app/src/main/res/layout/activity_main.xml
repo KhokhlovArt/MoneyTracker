@@ -18,5 +18,7 @@
         android:layout_centerVertical   ="true"
         android:layout_centerHorizontal ="true"
         android:textSize                ="36sp"
+        android:background              ="@color/main_lbl_background"
+        android:textColor               ="@color/main_lbl_text"
         android:text                    ="@string/hello_msg" />
 </RelativeLayout>
