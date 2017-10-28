@@ -6,4 +6,7 @@
     <color name="main_background">#607D8B</color>
     <color name="main_lbl_background">#84c0c5</color>
     <color name="main_lbl_text">#ffffff</color>
+    <color name="back_main_layout">#ffffff</color>
+    <color name="main_hint_color">#95989a</color>
+    <color name="black_text">#000000</color>
 </resources>
