@@ -1,5 +1,6 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -20,12 +21,12 @@ import java.util.List;
  */
 
 public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHolder> {
-
+    private static int COLOR_CURRENCY = Color.rgb(150,150,150);
     private List<ItemCosts> itemCostList = new ArrayList<>();
-
-    public ItemsAdaptor()
+    private Context context;
+    public ItemsAdaptor(Context context)
     {
-
+        this.context = context;
         itemCostList.add(new ItemCosts(1,"Диван"));
         itemCostList.add(new ItemCosts(1,"Чемодан"));
         itemCostList.add(new ItemCosts(12,"Саквояж"));
@@ -52,13 +53,10 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
-        Resources res = ItemsActivity.getRes();
-
-        String text2 = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).getCost()));
-
-
-        Spannable text = new SpannableString(text2 );
-        text.setSpan(new ForegroundColorSpan(Color.rgb(150,150,150)), text.length()-1, text.length() ,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Resources res = context.getResources();
+        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).getCost()));
+        Spannable text = new SpannableString(text_from_pattern);
+        text.setSpan(new ForegroundColorSpan(COLOR_CURRENCY), text.length()-1, text.length() ,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.name.setText(itemCostList.get(position).getName());
         holder.cost.setText(text);
     }

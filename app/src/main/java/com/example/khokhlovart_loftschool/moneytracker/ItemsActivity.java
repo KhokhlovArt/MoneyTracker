@@ -15,18 +15,11 @@ import android.widget.ArrayAdapter;
  */
 
 public class ItemsActivity  extends AppCompatActivity {
-    private static Resources res;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.items_list);
-        res = getResources();
         RecyclerView itemsRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemsRecyclerView.setAdapter(new ItemsAdaptor());
-
-    }
-
-    public static Resources getRes() {
-        return res;
+        itemsRecyclerView.setAdapter(new ItemsAdaptor(this));
     }
 }
