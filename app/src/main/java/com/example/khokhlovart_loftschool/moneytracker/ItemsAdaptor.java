@@ -24,25 +24,37 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     private static int COLOR_CURRENCY = Color.rgb(150,150,150);
     private List<ItemCosts> itemCostList = new ArrayList<>();
     private Context context;
-    public ItemsAdaptor(Context context)
+    public ItemsAdaptor(Context context, int type)
     {
         this.context = context;
-        itemCostList.add(new ItemCosts(1,"Диван"));
-        itemCostList.add(new ItemCosts(1,"Чемодан"));
-        itemCostList.add(new ItemCosts(12,"Саквояж"));
-        itemCostList.add(new ItemCosts(644,"Картину"));
-        itemCostList.add(new ItemCosts(5,"Корзину"));
-        itemCostList.add(new ItemCosts(4,"Картонку"));
-        itemCostList.add(new ItemCosts(15,"И маленькую собачонку"));
-        itemCostList.add(new ItemCosts(3,"Выдали даме на станции Четыре зелёных квитанции О том, что получен багаж"));
-        itemCostList.add(new ItemCosts(7,"Диван"));
-        itemCostList.add(new ItemCosts(3,"Чемодан"));
-        itemCostList.add(new ItemCosts(33,"Саквояж"));
-        itemCostList.add(new ItemCosts(13,"Картина"));
-        itemCostList.add(new ItemCosts(2,"Корзина"));
-        itemCostList.add(new ItemCosts(3,"Картонка"));
-        itemCostList.add(new ItemCosts(777,"И маленькая собачонка."));
-
+        switch (type) {
+            case (ItemsFragment.PAGE_EXPENSE):
+                itemCostList.add(new ItemCosts(1, "Диван"));
+                itemCostList.add(new ItemCosts(1, "Чемодан"));
+                itemCostList.add(new ItemCosts(12, "Саквояж"));
+                itemCostList.add(new ItemCosts(644, "Картину"));
+                itemCostList.add(new ItemCosts(5, "Корзину"));
+                itemCostList.add(new ItemCosts(4, "Картонку"));
+                itemCostList.add(new ItemCosts(15, "И маленькую собачонку"));
+                itemCostList.add(new ItemCosts(3, "Выдали даме на станции Четыре зелёных квитанции О том, что получен багаж"));
+                itemCostList.add(new ItemCosts(7, "Диван"));
+                itemCostList.add(new ItemCosts(3, "Чемодан"));
+                itemCostList.add(new ItemCosts(33, "Саквояж"));
+                itemCostList.add(new ItemCosts(13, "Картина"));
+                itemCostList.add(new ItemCosts(2, "Корзина"));
+                itemCostList.add(new ItemCosts(3, "Картонка"));
+                itemCostList.add(new ItemCosts(777, "И маленькая собачонка."));
+                break;
+            case (ItemsFragment.PAGE_INCOMES):
+                itemCostList.add(new ItemCosts(1000, "Зарплата"));
+                itemCostList.add(new ItemCosts(666, "Подарок от тёщи"));
+                itemCostList.add(new ItemCosts(10, "Продали старый диван"));
+                itemCostList.add(new ItemCosts(5000, "Сдача бутылок"));
+                itemCostList.add(new ItemCosts(777, "Выиграл в лотерею"));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
