@@ -39,8 +39,8 @@ public class ItemsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
         type = getArguments().getInt(KEY_TYPE, PAGE_UNKNOWN);
+        RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         itemsRecyclerView.setAdapter(new ItemsAdaptor(getContext(), type));
     }
