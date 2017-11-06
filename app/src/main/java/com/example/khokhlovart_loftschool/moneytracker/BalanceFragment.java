@@ -11,9 +11,7 @@ import android.view.ViewGroup;
  * Created by Dom on 04.11.2017.
  */
 
-public class BalanceFragment extends Fragment {
-
-
+public class BalanceFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
