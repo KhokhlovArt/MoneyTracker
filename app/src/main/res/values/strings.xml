@@ -4,4 +4,17 @@
     <string name="name_lbl_hint">Название</string>
     <string name="count_lbl_hint">0 ₽</string>
     <string name="cost_with_currency">%1$s ₽</string>
+
+    <string name="tab_name_expense"> Расходы </string>
+    <string name="tab_name_incomes"> Доходы </string>
+    <string name="tab_name_balance"> Баланс </string>
+    <string name="part_developed_text">Раздел находится в разработке</string>
+    <string name="error_text">Упс, произошёл сбой, мы спешно устраняем данную ошибку</string>
+
+    <array name="tabs_name">
+        <item>@string/tab_name_expense</item>
+        <item>@string/tab_name_incomes</item>
+        <item>@string/tab_name_balance</item>
+    </array>
+
 </resources>
