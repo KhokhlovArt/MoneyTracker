@@ -20,4 +20,10 @@ public interface Api {
     })
     @GET("items")
     Call<List<ItemCosts>> items(@Query("type") int type);
+
+    @Headers({
+            "CONTENT-TYPE: application/json",
+    })
+    @GET("add")
+    Call<ItemCosts> add();
 }

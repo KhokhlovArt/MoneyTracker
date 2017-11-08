@@ -61,6 +61,12 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         this.itemCostList = items;
         notifyDataSetChanged();
     }
+
+    public  void  addItems(ItemCosts item)
+    {
+        this.itemCostList.add(item);
+    }
+
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return  new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_costs, parent, false));

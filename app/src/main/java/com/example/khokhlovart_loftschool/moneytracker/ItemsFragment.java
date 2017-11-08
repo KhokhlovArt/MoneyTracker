@@ -69,9 +69,48 @@ public class ItemsFragment extends Fragment{
             RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             itemsRecyclerView.setAdapter(adaptor);
-
-            loadItems();
+            if (type == PAGE_EXPENSE) {
+                loadItems();
+            }
+            else {
+                addItem();
+            }
         }
+    }
+    private void addItem() {
+        getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<ItemCosts>() {
+            @Override
+            public Loader<ItemCosts> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<ItemCosts>(getContext()) {
+                    @Override
+
+                    public ItemCosts loadInBackground() {
+                        try {
+                            ItemCosts item = api.add().execute().body();
+                            return item;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<ItemCosts> loader, ItemCosts items) {
+                if (items == null) {
+                    adaptor.setItems(new ArrayList<ItemCosts>());
+                    showError(getContext().getResources().getString(R.string.error_msg));
+                } else {
+                    adaptor.addItems(items);
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<ItemCosts> loader) {
+
+            }
+        }).forceLoad();
     }
 
     private void loadItems() {
