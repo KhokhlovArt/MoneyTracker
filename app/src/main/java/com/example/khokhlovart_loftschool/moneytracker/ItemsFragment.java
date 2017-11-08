@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.khokhlovart_loftschool.moneytracker.Api.Api;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,10 +44,7 @@ public class ItemsFragment extends Fragment{
         type    = getArguments().getInt(KEY_TYPE, PAGE_UNKNOWN);
         adaptor = new ItemsAdaptor(getContext(), type);
         api     = ((App) getActivity().getApplication()).getApi();
-        /*if (type == PAGE_UNKNOWN) {
-            throw new IllegalStateException("Unknown Fragment Type");
-        }*/
-        //Log.e("!!!!!!!!", "adaptor = " + adaptor);
+
     }
 
     public static ItemsFragment CreateItemsFragment(int type)
@@ -71,6 +69,7 @@ public class ItemsFragment extends Fragment{
             RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             itemsRecyclerView.setAdapter(adaptor);
+
             loadItems();
         }
     }
@@ -87,7 +86,6 @@ public class ItemsFragment extends Fragment{
                             List<ItemCosts> items = api.items(type).execute().body();
                             return items;
                         } catch (IOException e) {
-                            showError(e.getMessage());
                             e.printStackTrace();
                             return null;
                         }
@@ -98,7 +96,8 @@ public class ItemsFragment extends Fragment{
             @Override
             public void onLoadFinished(Loader<List<ItemCosts>> loader, List<ItemCosts> items) {
                 if (items == null) {
-                    showError("Произошла ошибка");
+                    adaptor.setItems(new ArrayList<ItemCosts>());
+                    showError(getContext().getResources().getString(R.string.error_msg));
                 } else {
                     adaptor.setItems(items);
                 }
