@@ -18,8 +18,6 @@
         <item>@string/tab_name_expense</item>
         <item>@string/tab_name_incomes</item>
         <item>@string/tab_name_balance</item>
-        <item>@string/tab_name_test</item>
-        <item>@string/tab_name_test</item>
     </array>
 
 </resources>

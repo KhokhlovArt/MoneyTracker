@@ -7,6 +7,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 
@@ -24,6 +26,6 @@ public interface Api {
     @Headers({
             "CONTENT-TYPE: application/json",
     })
-    @GET("add")
-    Call<ItemCosts> add();
+    @POST("items/add")
+    Call<Void> items_add();
 }

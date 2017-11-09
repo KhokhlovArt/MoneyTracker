@@ -1,6 +1,5 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
-import android.content.ClipData;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +31,7 @@ public class ItemsFragment extends Fragment{
     private static final String KEY_TYPE = "TYPE";
     private int type = -1;
     private static final int LOADER_ITEMS = 0;
+    private static final int LOADER_ITEMS_ADD = 1;
 
     private ItemsAdaptor adaptor;
     private Api api;
@@ -69,47 +68,35 @@ public class ItemsFragment extends Fragment{
             RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             itemsRecyclerView.setAdapter(adaptor);
-            if (type == PAGE_EXPENSE) {
-                loadItems();
-            }
-            else {
-                addItem();
-            }
+            loadItems();
         }
     }
     private void addItem() {
-        getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<ItemCosts>() {
+        getLoaderManager().initLoader(LOADER_ITEMS_ADD, null, new LoaderManager.LoaderCallbacks() {
             @Override
-            public Loader<ItemCosts> onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader<ItemCosts>(getContext()) {
+            public Loader onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader(getContext()) {
                     @Override
 
-                    public ItemCosts loadInBackground() {
+                    public Boolean loadInBackground() {
                         try {
-                            ItemCosts item = api.add().execute().body();
-                            return item;
+                            api.items_add().execute().body();
                         } catch (IOException e) {
                             e.printStackTrace();
-                            return null;
                         }
+                        return true;
                     }
                 };
             }
 
             @Override
-            public void onLoadFinished(Loader<ItemCosts> loader, ItemCosts items) {
-                if (items == null) {
-                    adaptor.setItems(new ArrayList<ItemCosts>());
-                    showError(getContext().getResources().getString(R.string.error_msg));
-                } else {
-                    adaptor.addItems(items);
-                }
+            public void onLoadFinished(Loader loader, Object data) {
             }
 
             @Override
-            public void onLoaderReset(Loader<ItemCosts> loader) {
-
+            public void onLoaderReset(Loader loader) {
             }
+
         }).forceLoad();
     }
 
