@@ -80,7 +80,7 @@ public class ItemsFragment extends Fragment{
 
                     public Boolean loadInBackground() {
                         try {
-                            api.items_add().execute().body();
+                            api.items_add(new ItemCosts(1,"test")).execute().body();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

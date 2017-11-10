@@ -27,5 +27,5 @@ public interface Api {
             "CONTENT-TYPE: application/json",
     })
     @POST("items/add")
-    Call<Void> items_add();
+    Call<Void> items_add(@Query("item") ItemCosts item);
 }
