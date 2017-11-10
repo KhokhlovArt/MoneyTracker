@@ -23,11 +23,12 @@ import java.util.List;
 public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHolder> {
     private static int COLOR_CURRENCY = Color.rgb(150,150,150);
     private List<ItemCosts> itemCostList = new ArrayList<>();
+
     private Context context;
     public ItemsAdaptor(Context context, int type)
     {
         this.context = context;
-        switch (type) {
+       /* switch (type) {
             case (ItemsFragment.PAGE_EXPENSE):
                 itemCostList.add(new ItemCosts(1, "Диван"));
                 itemCostList.add(new ItemCosts(1, "Чемодан"));
@@ -54,7 +55,11 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 break;
             default:
                 break;
-        }
+        }*/
+    }
+    public void setItems(List<ItemCosts> items) {
+        this.itemCostList = items;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -66,10 +71,10 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
         Resources res = context.getResources();
-        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).getCost()));
+        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).cost));
         Spannable text = new SpannableString(text_from_pattern);
         text.setSpan(new ForegroundColorSpan(COLOR_CURRENCY), text.length()-1, text.length() ,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        holder.name.setText(itemCostList.get(position).getName());
+        holder.name.setText(itemCostList.get(position).name);
         holder.cost.setText(text);
     }
 
@@ -87,7 +92,6 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.item_name);
             cost = (TextView) itemView.findViewById(R.id.item_cost);
-
         }
     }
 }
