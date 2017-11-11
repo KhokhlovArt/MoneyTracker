@@ -57,6 +57,12 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 break;
         }*/
     }
+
+    public void addItem(ItemCosts items) {
+        this.itemCostList.add(items);
+        notifyDataSetChanged();
+    }
+
     public void setItems(List<ItemCosts> items) {
         this.itemCostList = items;
         notifyDataSetChanged();

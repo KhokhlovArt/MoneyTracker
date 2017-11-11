@@ -1,5 +1,7 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
+//import android.support.design.widget.TabLayout;
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,5 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
         pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
         tab.setupWithViewPager(pager);
+
     }
 }
