@@ -1,65 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-xmlns:android         ="http://schemas.android.com/apk/res/android"
-xmlns:tools           ="http://schemas.android.com/tools"
-android:id            ="@+id/activity_add"
-android:layout_width  ="match_parent"
-android:layout_height ="match_parent"
-android:background    ="@drawable/bg_pattern"
-tools:context         ="com.example.khokhlovart_loftschool.moneytracker.MainActivity"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android         ="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools           ="http://schemas.android.com/tools"
+    android:id            ="@+id/activity_add"
+    android:layout_width  ="match_parent"
+    android:layout_height ="match_parent"
+    android:background    ="@drawable/bg_pattern"
+    tools:context         ="com.example.khokhlovart_loftschool.moneytracker.MainActivity"
     >
-<LinearLayout
-    android:layout_width  = "match_parent"
-    android:layout_height = "wrap_content"
-    android:orientation   = "horizontal"
-    android:paddingBottom="7dp"
-    android:background="@drawable/shadow"
-    >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width  = "match_parent"
-        android:layout_height = "wrap_content"
-        android:background    = "@color/back_main_layout"
-        android:padding       = "16dp"
-        android:weightSum     = "100"
-        android:orientation   = "horizontal"
-        android:gravity       = "center_vertical"
-        >
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:elevation="12dp"
+            app:title="@string/lbl_new"
+            android:id="@+id/tool_bar"
 
-        <EditText
-            android:layout_width  = "0dp"
+            >
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v7.widget.CardView
+            android:layout_width  = "match_parent"
             android:layout_height = "wrap_content"
-            android:layout_weight = "75"
-            android:hint          = "@string/name_lbl_hint"
-            android:textSize      = "20sp"
-            android:inputType     = "text"
-            android:textColor     = "@color/black_text"
-            android:textColorHint = "@color/main_hint_color"
-            android:id            = "@+id/name"
-            />
+            android:elevation     = "4dp"
+            app:layout_behavior   = "@string/appbar_scrolling_view_behavior">
 
-        <EditText
-            android:layout_width  = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "25"
-            android:hint          = "@string/count_lbl_hint"
-            android:textSize      = "20sp"
-            android:inputType     = "number"
-            android:textColor     = "@color/black_text"
-            android:textColorHint = "@color/main_hint_color"
-            android:id            = "@+id/cost"
-            />
+        <LinearLayout
+            android:layout_width  = "match_parent"
+            android:layout_height = "match_parent"
+            android:background    = "@color/back_main_layout"
+            android:padding       = "16dp"
+            android:weightSum     = "100"
+            android:elevation     = "12dp"
+            android:orientation   = "horizontal"
+            android:gravity       = "center_vertical"
+            >
 
-        <ImageButton
-            android:layout_width   = "wrap_content"
-            android:layout_height  = "wrap_content"
-            android:minHeight      = "35dp"
-            android:minWidth       = "35dp"
-            android:layout_gravity = "right|center"
-            android:background     = "@drawable/ic_add_gray_24dp"
-            android:id             ="@+id/btnAdd"
-            />
-    </LinearLayout>
-</LinearLayout>
+            <EditText
+                android:layout_width  = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_weight = "75"
+                android:hint          = "@string/name_lbl_hint"
+                android:textSize      = "20sp"
+                android:inputType     = "text"
+                android:textColor     = "@color/black_text"
+                android:textColorHint = "@color/main_hint_color"
+                android:id            = "@+id/name"
+                />
 
-</RelativeLayout>
+            <EditText
+                android:layout_width  = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_weight = "25"
+                android:hint          = "@string/count_lbl_hint"
+                android:textSize      = "20sp"
+                android:inputType     = "number"
+                android:textColor     = "@color/black_text"
+                android:textColorHint = "@color/main_hint_color"
+                android:id            = "@+id/cost"
+                />
+
+            <ImageButton
+                android:layout_width   = "wrap_content"
+                android:layout_height  = "wrap_content"
+                android:minHeight      = "35dp"
+                android:minWidth       = "35dp"
+                android:layout_gravity = "right|center"
+                android:background     = "@drawable/ic_add_gray_24dp"
+                android:id             ="@+id/btnAdd"
+                />
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

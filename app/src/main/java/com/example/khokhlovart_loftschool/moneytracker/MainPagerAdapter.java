@@ -1,11 +1,10 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
 import android.content.res.Resources;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
+
 
 /**
  * Created by Dom on 04.11.2017.

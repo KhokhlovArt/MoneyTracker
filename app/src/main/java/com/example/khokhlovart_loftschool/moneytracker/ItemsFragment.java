@@ -1,13 +1,16 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import com.example.khokhlovart_loftschool.moneytracker.Api.Api;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Dom on 02.11.2017.
@@ -63,11 +68,19 @@ public class ItemsFragment extends Fragment{
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        if (type != PAGE_UNKNOWN)
-        {
+        if (type != PAGE_UNKNOWN) {
             RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             itemsRecyclerView.setAdapter(adaptor);
+            FloatingActionButton fab =  (FloatingActionButton) view.findViewById(R.id.fab_add);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext() , AddActivity.class);
+                    intent.putExtra(AddActivity.PAGE_TYPE, type);
+                    startActivityForResult(intent, AddActivity.RCT_ADD_ITEM);
+                }
+            });
             loadItems();
         }
     }
@@ -138,5 +151,14 @@ public class ItemsFragment extends Fragment{
 
     private void showError(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AddActivity.RCT_ADD_ITEM  && resultCode == RESULT_OK) {
+            ItemCosts item = (ItemCosts) data.getSerializableExtra(AddActivity.RESULT_ITEM);
+            adaptor.addItem(item);
+        }
     }
 }

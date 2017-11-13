@@ -13,6 +13,7 @@
     <string name="error_text">Упс, произошёл сбой, мы спешно устраняем данную ошибку</string>
 
     <string name="error_msg">Произошла ошибка</string>
+    <string name="lbl_new">Новая запись</string>
 
     <array name="tabs_name">
         <item>@string/tab_name_expense</item>

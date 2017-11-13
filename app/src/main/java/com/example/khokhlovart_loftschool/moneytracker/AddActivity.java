@@ -1,20 +1,29 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import java.io.Serializable;
+
 public class AddActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "KhokhlovArt log: ";
+    public static final String PAGE_TYPE = "page_type"; // ID типа фрагмента с которого перешли на форму
+    public static final int RCT_ADD_ITEM = 100;         // ID Intent-а для резултата "Добавить элемент"
+    public static final String RESULT_ITEM = "item";    // ID возвращаемого результата с вновь созданным обектом ItemsCost
+    public static int type = -1;
     private boolean isHasName = false;
     private boolean isHasCost = false;
     private EditText et_name;
     private EditText et_cost;
     private ImageButton btn_add;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +32,8 @@ public class AddActivity extends AppCompatActivity {
         et_cost = (EditText)    findViewById(R.id.cost);
         btn_add = (ImageButton) findViewById(R.id.btnAdd);
         btn_add.setEnabled(false);
+        type = getIntent().getIntExtra(PAGE_TYPE,-1);
+        et_name.setFocusable(true);
         et_name.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -47,6 +58,16 @@ public class AddActivity extends AppCompatActivity {
                 setAddBtnEnabled();
             }
         });
+
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent result_intent = new Intent();
+                result_intent.putExtra(RESULT_ITEM, (Serializable) new ItemCosts(Integer.parseInt(String.valueOf(et_cost.getText())), et_name.getText().toString()));
+                setResult(RESULT_OK, result_intent);
+                finish();
+            }
+        });
     }
     private void setAddBtnEnabled()
     {
@@ -54,33 +75,4 @@ public class AddActivity extends AppCompatActivity {
         btn_add.setBackground((isHasName && isHasCost) ? getDrawable(R.drawable.ic_add_black_24dp) : getDrawable(R.drawable.ic_add_gray_24dp));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(LOG_TAG, "i start!");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.d(LOG_TAG, "i pause!");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(LOG_TAG, "i stop!");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(LOG_TAG, "i destroy! :(");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(LOG_TAG, "i resume!");
-    }
 }
