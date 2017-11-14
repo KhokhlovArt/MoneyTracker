@@ -8,6 +8,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,45 +24,55 @@ import java.util.List;
 public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHolder> {
     private static int COLOR_CURRENCY = Color.rgb(150,150,150);
     private List<ItemCosts> itemCostList = new ArrayList<>();
-
+    private ItemsAdapterListener clickListener = null;
+    private SparseBooleanArray selectedItems = new SparseBooleanArray();
     private Context context;
     public ItemsAdaptor(Context context, int type)
     {
         this.context = context;
-       /* switch (type) {
-            case (ItemsFragment.PAGE_EXPENSE):
-                itemCostList.add(new ItemCosts(1, "Диван"));
-                itemCostList.add(new ItemCosts(1, "Чемодан"));
-                itemCostList.add(new ItemCosts(12, "Саквояж"));
-                itemCostList.add(new ItemCosts(644, "Картину"));
-                itemCostList.add(new ItemCosts(5, "Корзину"));
-                itemCostList.add(new ItemCosts(4, "Картонку"));
-                itemCostList.add(new ItemCosts(15, "И маленькую собачонку"));
-                itemCostList.add(new ItemCosts(3, "Выдали даме на станции Четыре зелёных квитанции О том, что получен багаж"));
-                itemCostList.add(new ItemCosts(7, "Диван"));
-                itemCostList.add(new ItemCosts(3, "Чемодан"));
-                itemCostList.add(new ItemCosts(33, "Саквояж"));
-                itemCostList.add(new ItemCosts(13, "Картина"));
-                itemCostList.add(new ItemCosts(2, "Корзина"));
-                itemCostList.add(new ItemCosts(3, "Картонка"));
-                itemCostList.add(new ItemCosts(777, "И маленькая собачонка."));
-                break;
-            case (ItemsFragment.PAGE_INCOMES):
-                itemCostList.add(new ItemCosts(1000, "Зарплата"));
-                itemCostList.add(new ItemCosts(666, "Подарок от тёщи"));
-                itemCostList.add(new ItemCosts(10, "Продали старый диван"));
-                itemCostList.add(new ItemCosts(5000, "Сдача бутылок"));
-                itemCostList.add(new ItemCosts(777, "Выиграл в лотерею"));
-                break;
-            default:
-                break;
-        }*/
+
     }
+
+    public void setListener(ItemsAdapterListener listener) {
+            this.clickListener = listener;
+    }
+
 
     public void addItem(ItemCosts items) {
         this.itemCostList.add(items);
         notifyDataSetChanged();
     }
+    public void toggleSelection(int pos) {
+        if (selectedItems.get(pos, false)) {
+                selectedItems.delete(pos);
+            } else {
+                selectedItems.put(pos, true);
+            }
+        notifyItemChanged(pos);
+    }
+
+    void clearSelections() {
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    int getSelectedItemCount() {
+        return selectedItems.size();
+    }
+
+            List<Integer> getSelectedItems() {
+            List<Integer> items = new ArrayList<>(selectedItems.size());
+            for (int i = 0; i < selectedItems.size(); i++) {
+                    items.add(selectedItems.keyAt(i));
+                }
+            return items;
+        }
+
+            ItemCosts remove(int pos) {
+            final ItemCosts item = itemCostList.remove(pos);
+            notifyItemRemoved(pos);
+            return item;
+       }
 
     public void setItems(List<ItemCosts> items) {
         this.itemCostList = items;
@@ -82,6 +93,8 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         text.setSpan(new ForegroundColorSpan(COLOR_CURRENCY), text.length()-1, text.length() ,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.name.setText(itemCostList.get(position).name);
         holder.cost.setText(text);
+        ItemCosts item = itemCostList.get(position);
+        holder.bind(item, position, selectedItems.get(position, false), clickListener);
     }
 
 
@@ -98,6 +111,26 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.item_name);
             cost = (TextView) itemView.findViewById(R.id.item_cost);
+        }
+
+        void bind(final ItemCosts item, final int position, boolean selected, final ItemsAdapterListener listener) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(item, position);
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    listener.onItemLongClick(item, position);
+                    return true;
+                }
+            });
+
+            itemView.setActivated(selected);
         }
     }
 }
