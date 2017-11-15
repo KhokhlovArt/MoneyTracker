@@ -17,7 +17,7 @@
     <string name="error_msg">Произошла ошибка</string>
     <string name="lbl_new">Новая запись</string>
     <string name="menu_delete">Удалить</string>
-    <string name="Approve">Уверны?</string>
+    <string name="Approve">Вы уверены?</string>
     <string name="titel_delete_elements">Удаление элементов</string>
 
     <array name="tabs_name">
