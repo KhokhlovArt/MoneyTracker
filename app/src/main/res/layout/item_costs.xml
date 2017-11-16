@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/items_margin"
+    android:layout_marginLeft="@dimen/items_mrg"
+    android:layout_marginRight="@dimen/items_mrg"
     android:minHeight="@dimen/items_minHeight"
     android:background="@drawable/item_bg"
     xmlns:android="http://schemas.android.com/apk/res/android">

@@ -8,7 +8,7 @@
     <dimen name="item_name_text_size">20sp</dimen>
     <dimen name="item_cost_padding">17dp</dimen>
     <dimen name="item_cost_text_size">24sp</dimen>
-    <dimen name="ma_vp_margTop">12dp</dimen>
+    <dimen name="ma_vp_margTop">16dp</dimen>
     <dimen name="ma_vp_tab_max_width">0dp</dimen>
     <dimen name="ma_vp_tab_ind_height">2dp</dimen>
     <dimen name="add_tool_elevation">12dp</dimen>
@@ -22,4 +22,5 @@
     <dimen name="items_list_fob_w">57dp</dimen>
     <dimen name="items_list_fob_h">57dp</dimen>
     <dimen name="items_list_fob_margin">17dp</dimen>
+    <dimen name="items_mrg">10dp</dimen>
 </resources>
