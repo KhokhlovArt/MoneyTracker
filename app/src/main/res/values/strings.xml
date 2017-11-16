@@ -19,6 +19,7 @@
     <string name="menu_delete">Удалить</string>
     <string name="Approve">Вы уверены?</string>
     <string name="titel_delete_elements">Удаление элементов</string>
+    <string name="ma_titel">Учёт бюджета</string>
 
     <array name="tabs_name">
         <item>@string/tab_name_expense</item>

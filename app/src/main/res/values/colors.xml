@@ -13,7 +13,7 @@
 
     <color name="btn_add_color">#16A599</color>
 
-    <color name="item_color">#FCC518</color>
-    <color name="item_color_shadow">#30A0A0A0</color>
-    <color name="item_color_selected">#985305</color>
+    <color name="item_color">#fcc518</color>
+    <color name="item_color_shadow">#10060506</color>
+    <color name="item_color_selected">#995201</color>
 </resources>
