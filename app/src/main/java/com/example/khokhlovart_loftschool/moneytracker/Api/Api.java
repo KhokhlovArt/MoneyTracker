@@ -1,5 +1,6 @@
 package com.example.khokhlovart_loftschool.moneytracker.Api;
 
+import com.example.khokhlovart_loftschool.moneytracker.AuthRes;
 import com.example.khokhlovart_loftschool.moneytracker.ItemCosts;
 
 import java.util.List;
@@ -21,11 +22,16 @@ public interface Api {
             "CONTENT-TYPE: application/json",
     })
     @GET("items")
-    Call<List<ItemCosts>> items(@Query("type") int type);
+    Call<List<ItemCosts>> items(@Query("type") String type);
 
-    @Headers({
-            "CONTENT-TYPE: application/json",
-    })
+//    @Headers({
+//            "CONTENT-TYPE: application/json",
+//    })
+    //@POST("items/add")
+    //Call<Void> items_add(@Query("item") ItemCosts item);
     @POST("items/add")
-    Call<Void> items_add(@Query("item") ItemCosts item);
+    Call<Void> items_add(@Query("price") int price, @Query("name") String name, @Query("type") String type);
+
+    @GET("auth")
+    Call<AuthRes> auth(@Query("social_user_id") String socialUserId);
 }

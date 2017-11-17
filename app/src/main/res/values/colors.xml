@@ -11,7 +11,10 @@
     <color name="black_text">#000000</color>
     <color name="white_text">#ffffff</color>
 
+    <color name="auth_backgraund">#95c9b8</color>
+
     <color name="btn_add_color">#16A599</color>
+    <color name="auth_btn_g">#FF5243</color>
 
     <color name="item_color">#fcc518</color>
     <color name="item_color_shadow">#10060506</color>

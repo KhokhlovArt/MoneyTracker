@@ -7,11 +7,11 @@ import java.io.Serializable;
  */
 
 public class ItemCosts implements Serializable {
-    public int cost;
+    public int price;
     public String name;
 
     public ItemCosts(int cost, String name) {
-        this.cost = cost;
+        this.price = cost;
         this.name = name;
     }
 }

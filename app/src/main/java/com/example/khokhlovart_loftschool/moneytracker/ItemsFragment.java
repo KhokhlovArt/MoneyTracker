@@ -116,7 +116,7 @@ public class ItemsFragment extends Fragment{
             loadItems();
         }
     }
-    private void addItem() {
+    private void addItem(final ItemCosts new_item) {
         getLoaderManager().initLoader(LOADER_ITEMS_ADD, null, new LoaderManager.LoaderCallbacks() {
             @Override
             public Loader onCreateLoader(int id, Bundle args) {
@@ -125,7 +125,7 @@ public class ItemsFragment extends Fragment{
 
                     public Boolean loadInBackground() {
                         try {
-                            api.items_add(new ItemCosts(1,"test")).execute().body();
+                            api.items_add(new_item.price, new_item.name, (type == PAGE_EXPENSE ? "expense" : "income")).execute().body();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -154,7 +154,7 @@ public class ItemsFragment extends Fragment{
 
                     public List<ItemCosts> loadInBackground() {
                         try {
-                            List<ItemCosts> items = api.items(type).execute().body();
+                            List<ItemCosts> items = api.items( (type == PAGE_EXPENSE ? "expense" : "income") ).execute().body();
                             return items;
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -190,6 +190,7 @@ public class ItemsFragment extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AddActivity.RCT_ADD_ITEM  && resultCode == RESULT_OK) {
             ItemCosts item = (ItemCosts) data.getSerializableExtra(AddActivity.RESULT_ITEM);
+            addItem(item);
             adaptor.addItem(item);
         }
     }

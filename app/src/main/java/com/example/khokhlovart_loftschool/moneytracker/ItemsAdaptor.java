@@ -88,7 +88,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
         Resources res = context.getResources();
-        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).cost));
+        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).price));
         Spannable text = new SpannableString(text_from_pattern);
         text.setSpan(new ForegroundColorSpan(COLOR_CURRENCY), text.length()-1, text.length() ,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.name.setText(itemCostList.get(position).name);

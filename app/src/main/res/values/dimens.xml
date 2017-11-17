@@ -23,4 +23,10 @@
     <dimen name="items_list_fob_h">57dp</dimen>
     <dimen name="items_list_fob_margin">17dp</dimen>
     <dimen name="items_mrg">10dp</dimen>
+    <dimen name="auth_info_marTop">22dp</dimen>
+
+    <dimen name="auth_info_text_size">12sp</dimen>
+    <dimen name="auth_enter_text_size">23sp</dimen>
+
+
 </resources>
