@@ -69,6 +69,7 @@ public class AddActivity extends AppCompatActivity {
             }
         });
     }
+
     private void setAddBtnEnabled()
     {
         btn_add.setEnabled((isHasName && isHasCost));

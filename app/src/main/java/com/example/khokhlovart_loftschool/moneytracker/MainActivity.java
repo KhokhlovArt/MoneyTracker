@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TabLayout tab      = (TabLayout) findViewById(R.id.tabs);
-        Toolbar   tool_bar = (Toolbar)   findViewById(R.id.tool_bar);
+        Toolbar tool_bar   = (Toolbar)   findViewById(R.id.tool_bar);
         ViewPager pager    = (ViewPager) findViewById(R.id.pager);
 
         pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));

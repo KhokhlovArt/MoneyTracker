@@ -4,14 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -37,6 +44,8 @@ public class ItemsFragment extends Fragment{
     private int type = -1;
     private static final int LOADER_ITEMS = 0;
     private static final int LOADER_ITEMS_ADD = 1;
+    private ActionMode actionMode;
+    private FloatingActionButton fab;
 
     private ItemsAdaptor adaptor;
     private Api api;
@@ -48,7 +57,6 @@ public class ItemsFragment extends Fragment{
         type    = getArguments().getInt(KEY_TYPE, PAGE_UNKNOWN);
         adaptor = new ItemsAdaptor(getContext(), type);
         api     = ((App) getActivity().getApplication()).getApi();
-
     }
 
     public static ItemsFragment CreateItemsFragment(int type)
@@ -72,7 +80,31 @@ public class ItemsFragment extends Fragment{
             RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             itemsRecyclerView.setAdapter(adaptor);
-            FloatingActionButton fab =  (FloatingActionButton) view.findViewById(R.id.fab_add);
+            adaptor.setListener(new ItemsAdapterListener() {
+                @Override
+                public void onItemClick(ItemCosts item, int position) {
+                    if (isInActionMode()) {
+                        adaptor.toggleSelection(position);
+                        actionMode.setTitle(getString(R.string.select_count_element, adaptor.getSelectedItemCount()));
+                    }
+                }
+
+                @Override
+                public void onItemLongClick(ItemCosts item, int position) {
+                    if (isInActionMode()) {
+                        return;
+                    }
+                    actionMode = ((AppCompatActivity) getActivity()).startSupportActionMode(actionModeCallback);
+                    adaptor.toggleSelection(position);
+                    actionMode.setTitle(getString(R.string.select_count_element, adaptor.getSelectedItemCount()));
+                }
+
+                private boolean isInActionMode() {
+                    return actionMode != null;
+                }
+            });
+
+            fab = (FloatingActionButton) view.findViewById(R.id.fab_add);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -160,5 +192,60 @@ public class ItemsFragment extends Fragment{
             ItemCosts item = (ItemCosts) data.getSerializableExtra(AddActivity.RESULT_ITEM);
             adaptor.addItem(item);
         }
+    }
+
+    private void removeSelectedItems() {
+        for (int i = adaptor.getSelectedItems().size() - 1; i >= 0; i--) {
+            adaptor.remove(adaptor.getSelectedItems().get(i));
+        }
+    }
+    public void stopActionMode(){
+        actionMode.finish();
+    }
+
+    public void deleteSelectedItems(){
+        removeSelectedItems();
+        stopActionMode();
+    }
+
+
+    private ActionMode.Callback actionModeCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            fab.setVisibility(View.GONE);
+            MenuInflater inflater = mode.getMenuInflater();
+            inflater.inflate(R.menu.menu, menu);
+            return true;
+        }
+
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.menu_delete:
+                    showDialog();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            fab.setVisibility(View.VISIBLE);
+            adaptor.clearSelections();
+            actionMode = null;
+        }
+
+    };
+    private void showDialog() {
+        ConfirmationDialog dialog = new ConfirmationDialog();
+        dialog.setItemsFragment(this);
+        dialog.show(getFragmentManager(), "Confirmation");
     }
 }

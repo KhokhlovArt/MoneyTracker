@@ -2,30 +2,29 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="5dp"
-    android:minHeight="65dp"
-    android:paddingBottom="5dp"
+    android:layout_margin="@dimen/items_margin"
+    android:layout_marginLeft="@dimen/items_mrg"
+    android:layout_marginRight="@dimen/items_mrg"
+    android:minHeight="@dimen/items_minHeight"
+    android:background="@drawable/item_bg"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         style="@style/ItemCostStyle"
-        android:paddingLeft="17dp"
-        android:textSize="20sp"
+        android:paddingLeft="@dimen/item_name_pad_left"
+        android:textSize="@dimen/item_name_text_size"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/item_costs_name"
         android:id="@+id/item_name"/>
 
     <TextView
         style="@style/ItemCostStyle"
-        android:padding="17dp"
+        android:padding="@dimen/item_cost_padding"
         android:layout_weight="0"
-        android:textSize="24sp"
+        android:textSize="@dimen/item_cost_text_size"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/item_costs_cost"
+        android:background="@color/item_color_shadow"
         android:id="@+id/item_cost"/>
 </LinearLayout>
