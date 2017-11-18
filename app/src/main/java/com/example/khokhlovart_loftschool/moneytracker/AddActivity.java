@@ -1,6 +1,7 @@
 package com.example.khokhlovart_loftschool.moneytracker;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,14 +16,13 @@ import java.io.Serializable;
 public class AddActivity extends AppCompatActivity {
     public static final String PAGE_TYPE = "page_type"; // ID типа фрагмента с которого перешли на форму
     public static final int RCT_ADD_ITEM = 100;         // ID Intent-а для резултата "Добавить элемент"
-    public static final String RESULT_ITEM = "item";    // ID возвращаемого результата с вновь созданным обектом ItemsCost
+    public static final String RESULT_ITEM = "new_item";    // ID возвращаемого результата с вновь созданным обектом ItemsCost
     public static int type = -1;
     private boolean isHasName = false;
     private boolean isHasCost = false;
     private EditText et_name;
     private EditText et_cost;
     private ImageButton btn_add;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent result_intent = new Intent();
-                result_intent.putExtra(RESULT_ITEM, (Serializable) new ItemCosts(Integer.parseInt(String.valueOf(et_cost.getText())), et_name.getText().toString()));
+                result_intent.putExtra(RESULT_ITEM, (Serializable) new ItemCosts(Integer.parseInt(String.valueOf(et_cost.getText())), et_name.getText().toString(), -1));
                 setResult(RESULT_OK, result_intent);
                 finish();
             }

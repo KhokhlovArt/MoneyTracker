@@ -29,6 +29,8 @@ import static okhttp3.logging.HttpLoggingInterceptor.Level;
 
 public class App extends Application {
     private Api api;
+    private static final String PREFERENCES_SESSION = "session";
+    private static final String KEY_AUTH_TOKEN = "auth-token";
 
     @Override
     public void onCreate() {
@@ -83,7 +85,4 @@ public class App extends Application {
             return chain.proceed(originalRequest.newBuilder().url(url).build());
         }
     }
-
-    private static final String PREFERENCES_SESSION = "session";
-    private static final String KEY_AUTH_TOKEN = "auth-token";
 }

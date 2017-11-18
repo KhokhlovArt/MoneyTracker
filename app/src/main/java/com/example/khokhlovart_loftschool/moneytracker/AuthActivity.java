@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.khokhlovart_loftschool.moneytracker.Api.Api;
@@ -25,8 +26,10 @@ public class AuthActivity extends AppCompatActivity {
     GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 777;
     private static final int LOADER_ITEMS_AUTHORIZATION = 1;
-    public static GoogleSignInAccount account;
+    private static GoogleSignInAccount account;
 
+    public static GoogleSignInAccount getAccount(){return account;}
+    public static void setAccount(GoogleSignInAccount acc){account = acc;}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +39,8 @@ public class AuthActivity extends AppCompatActivity {
                                         .requestEmail()
                                         .build();
         googleApiClient = new GoogleApiClient.Builder(this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
-        CardView buttonSingIn = (CardView) findViewById(R.id.btn_auth);
-
+        //CardView buttonSingIn = (CardView) findViewById(R.id.btn_auth);
+        ImageButton buttonSingIn = (ImageButton) findViewById(R.id.btn_auth);
         buttonSingIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +58,7 @@ public class AuthActivity extends AppCompatActivity {
             if (result.isSuccess() && result.getSignInAccount() != null) {
                // final GoogleSignInAccount account = result.getSignInAccount();
 
-                account = result.getSignInAccount();
+                setAccount(result.getSignInAccount());
                 getSupportLoaderManager().restartLoader(0, null, new LoaderManager.LoaderCallbacks<AuthRes>() {
                             @Override
                             public Loader<AuthRes> onCreateLoader(int id, Bundle args) {
@@ -98,5 +101,11 @@ public class AuthActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "Авторизация не удалась!", Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -9,9 +9,10 @@ import java.io.Serializable;
 public class ItemCosts implements Serializable {
     public int price;
     public String name;
-
-    public ItemCosts(int cost, String name) {
+    public int id;
+    public ItemCosts(int cost, String name, int id) {
         this.price = cost;
-        this.name = name;
+        this.name  = name;
+        this.id    = id;
     }
 }

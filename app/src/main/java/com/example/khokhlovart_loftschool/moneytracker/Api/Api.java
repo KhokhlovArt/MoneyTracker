@@ -24,14 +24,13 @@ public interface Api {
     @GET("items")
     Call<List<ItemCosts>> items(@Query("type") String type);
 
-//    @Headers({
-//            "CONTENT-TYPE: application/json",
-//    })
-    //@POST("items/add")
-    //Call<Void> items_add(@Query("item") ItemCosts item);
     @POST("items/add")
     Call<Void> items_add(@Query("price") int price, @Query("name") String name, @Query("type") String type);
 
     @GET("auth")
     Call<AuthRes> auth(@Query("social_user_id") String socialUserId);
+
+    @GET("items/remove")
+    Call<Void> items_remove(@Query("id") int id);
+
 }
