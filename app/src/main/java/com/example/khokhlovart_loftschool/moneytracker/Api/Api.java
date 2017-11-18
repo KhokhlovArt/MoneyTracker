@@ -30,7 +30,7 @@ public interface Api {
     @GET("auth")
     Call<AuthRes> auth(@Query("social_user_id") String socialUserId);
 
-    @GET("items/remove")
+    @POST("items/remove")
     Call<Void> items_remove(@Query("id") int id);
 
 }
