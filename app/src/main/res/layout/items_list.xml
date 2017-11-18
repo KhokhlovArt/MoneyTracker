@@ -6,7 +6,6 @@
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.example.khokhlovart_loftschool.moneytracker.MainActivity">
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
