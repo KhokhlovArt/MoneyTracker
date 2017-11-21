@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#95c9b8</color>
-    <color name="colorPrimaryDark">#88B7A7</color>
+    <color name="colorPrimaryDark">#88b7a7</color>
     <color name="colorAccent">#FFFF8E</color>
     <color name="main_background">#607D8B</color>
     <color name="main_lbl_background">#84c0c5</color>
@@ -11,7 +11,10 @@
     <color name="black_text">#000000</color>
     <color name="white_text">#ffffff</color>
 
+    <color name="auth_backgraund">#95c9b8</color>
+
     <color name="btn_add_color">#16A599</color>
+    <color name="auth_btn_g">#FF5243</color>
 
     <color name="item_color">#fcc518</color>
     <color name="item_color_shadow">#10060506</color>

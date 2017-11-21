@@ -42,7 +42,7 @@
             >
 
             <EditText
-                android:layout_width  = "0dp"
+                android:layout_width  = "@dimen/no_size"
                 android:layout_height = "wrap_content"
                 android:layout_weight = "75"
                 android:hint          = "@string/name_lbl_hint"
@@ -54,7 +54,7 @@
                 />
 
             <EditText
-                android:layout_width  = "0dp"
+                android:layout_width  = "@dimen/no_size"
                 android:layout_height = "wrap_content"
                 android:layout_weight = "25"
                 android:hint          = "@string/count_lbl_hint"

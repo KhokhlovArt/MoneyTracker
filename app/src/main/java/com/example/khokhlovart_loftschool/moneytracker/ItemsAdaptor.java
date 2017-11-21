@@ -30,18 +30,21 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     public ItemsAdaptor(Context context, int type)
     {
         this.context = context;
-
     }
 
     public void setListener(ItemsAdapterListener listener) {
             this.clickListener = listener;
     }
 
+    public ItemCosts getItemByPosition(int pos) {
+        return itemCostList.get(pos);
+    }
 
     public void addItem(ItemCosts items) {
         this.itemCostList.add(items);
         notifyDataSetChanged();
     }
+
     public void toggleSelection(int pos) {
         if (selectedItems.get(pos, false)) {
                 selectedItems.delete(pos);
@@ -68,11 +71,11 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             return items;
         }
 
-            ItemCosts remove(int pos) {
-            final ItemCosts item = itemCostList.remove(pos);
-            notifyItemRemoved(pos);
-            return item;
-       }
+    ItemCosts remove(int pos) {
+        final ItemCosts item = itemCostList.remove(pos);
+        notifyItemRemoved(pos);
+        return item;
+    }
 
     public void setItems(List<ItemCosts> items) {
         this.itemCostList = items;
@@ -88,7 +91,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     public void onBindViewHolder(ItemViewHolder holder, int position) {
 
         Resources res = context.getResources();
-        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).cost));
+        String text_from_pattern = res.getString(R.string.cost_with_currency, String.valueOf(itemCostList.get(position).price));
         Spannable text = new SpannableString(text_from_pattern);
         text.setSpan(new ForegroundColorSpan(COLOR_CURRENCY), text.length()-1, text.length() ,  Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         holder.name.setText(itemCostList.get(position).name);
