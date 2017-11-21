@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tab;
     private Toolbar tool_bar;
     private ViewPager pager;
-
+    private boolean isNeedInitPagerAdaptor = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if(AuthActivity.getAccount() != null) {
         //if(((App)getApplication()).isLoggedIn()){
-            pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
-            tab.setupWithViewPager(pager);
+            if (isNeedInitPagerAdaptor) {
+                isNeedInitPagerAdaptor = false;
+                pager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), getResources()));
+                tab.setupWithViewPager(pager);
+            }
         }
         else
         {

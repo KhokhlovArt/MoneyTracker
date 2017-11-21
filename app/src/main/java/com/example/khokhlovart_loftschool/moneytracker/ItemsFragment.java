@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.khokhlovart_loftschool.moneytracker.Api.Api;
@@ -48,6 +49,8 @@ public class ItemsFragment extends Fragment {
     private FloatingActionButton fab;
     private ItemCosts newAddItem;
     private List<Integer> idItemsToDelete = new ArrayList<>();
+    private RecyclerView itemsRecyclerView;
+    private LinearLayout loadinLayout;
 
     private ItemsAdaptor adaptor;
     private Api api;
@@ -86,9 +89,12 @@ public class ItemsFragment extends Fragment {
                     loadItems();
                 }
             });
-            RecyclerView itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
+            loadinLayout = (LinearLayout) view.findViewById(R.id.loading_layout);
+            loadinLayout.setVisibility(View.GONE);
+            itemsRecyclerView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
             itemsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             itemsRecyclerView.setAdapter(adaptor);
+            itemsRecyclerView.setVisibility(View.VISIBLE);
             adaptor.setListener(new ItemsAdapterListener() {
                 @Override
                 public void onItemClick(ItemCosts item, int position) {
@@ -127,7 +133,16 @@ public class ItemsFragment extends Fragment {
         }
     }
 
-
+    private void StartLoadingElements()
+    {
+        loadinLayout.setVisibility(View.VISIBLE);
+        itemsRecyclerView.setVisibility(View.GONE);
+    }
+    private void StopLoadingElements()
+    {
+        loadinLayout.setVisibility(View.GONE);
+        itemsRecyclerView.setVisibility(View.VISIBLE);
+    }
     private void showError(String error) {
         Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
     }
@@ -136,9 +151,9 @@ public class ItemsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AddActivity.RCT_ADD_ITEM && resultCode == RESULT_OK) {
+            StartLoadingElements();
             ItemCosts item = (ItemCosts) data.getSerializableExtra(AddActivity.RESULT_ITEM);
             addItem(item);
-            adaptor.addItem(item);
         }
     }
 
@@ -242,7 +257,7 @@ public class ItemsFragment extends Fragment {
 
     private void addItem(ItemCosts new_item) {
         newAddItem = new_item;
-        getLoaderManager().initLoader(LOADER_ITEMS_ADD, null, new LoaderManager.LoaderCallbacks() {
+        getLoaderManager().restartLoader(LOADER_ITEMS_ADD, null, new LoaderManager.LoaderCallbacks() {
             @Override
             public Loader onCreateLoader(int id, Bundle args) {
                 return new AsyncTaskLoader(getContext()) {
@@ -260,7 +275,7 @@ public class ItemsFragment extends Fragment {
 
             @Override
             public void onLoadFinished(Loader loader, Object data) {
-
+                loadItems();
             }
 
             @Override
@@ -271,7 +286,7 @@ public class ItemsFragment extends Fragment {
     }
 
     private void loadItems() {
-        getLoaderManager().initLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<ItemCosts>>() {
+        getLoaderManager().restartLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<ItemCosts>>() {
             @Override
             public Loader<List<ItemCosts>> onCreateLoader(int id, Bundle args) {
                 return new AsyncTaskLoader<List<ItemCosts>>(getContext()) {
@@ -298,6 +313,7 @@ public class ItemsFragment extends Fragment {
                 } else {
                     adaptor.setItems(items);
                 }
+                StopLoadingElements();
             }
 
             @Override
