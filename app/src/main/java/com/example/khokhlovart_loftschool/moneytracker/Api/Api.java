@@ -1,6 +1,7 @@
 package com.example.khokhlovart_loftschool.moneytracker.Api;
 
 import com.example.khokhlovart_loftschool.moneytracker.AuthRes;
+import com.example.khokhlovart_loftschool.moneytracker.BalanceRes;
 import com.example.khokhlovart_loftschool.moneytracker.ItemCosts;
 
 import java.util.List;
@@ -32,5 +33,8 @@ public interface Api {
 
     @POST("items/remove")
     Call<Void> items_remove(@Query("id") int id);
+
+    @GET("balance")
+    Call<BalanceRes> balance();
 
 }

@@ -1,21 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+
+
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/balance"
     >
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_build_black_24dp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="@string/part_developed_text"
-        android:textColor="@color/black_text"
-        android:textSize="23sp"
+        tools:text="11111 Р"
         android:gravity="center"
+        android:textSize="@dimen/balance_total_textSize"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="@color/balance_total_color"
+        android:id="@+id/total"
         />
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/balance_total_lbl"
+        android:textSize="@dimen/balance_total_lbl_textSize"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="@color/balance_lbl_color"
+        android:layout_below="@+id/total"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/total_lbl" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/total_lbl"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="51dp"
+        android:stretchColumns="0,1"
+        android:id="@+id/tabel_exp_inc">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="1666 Р"
+                android:textSize="@dimen/balance_inc_exp_textSize"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/balance_expense_color"
+                android:id="@+id/exp"
+                android:gravity="center_horizontal"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/balance_inc_exp_textSize"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/balance_income_color"
+                tools:text="17777 Р"
+                android:id="@+id/inp"
+                android:gravity="center_horizontal"
+                />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/balance_inc_exp_lbl_textSize"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/balance_lbl_color"
+                android:text="@string/balance_exp_lbl"
+                android:gravity="center_horizontal"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/balance_inc_exp_lbl_textSize"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/balance_lbl_color"
+                android:text="@string/balance_inc_lbl"
+                android:gravity="center_horizontal"
+                />
+        </TableRow>
+
+        <TableRow>
+            <com.example.khokhlovart_loftschool.moneytracker.Diagram
+                android:layout_width="@dimen/no_size"
+                android:layout_height="@dimen/no_size"
+                android:layout_span="2"
+                android:id="@+id/diagram"
+                android:layout_margin="@dimen/diagram_margin"
+                android:layout_gravity="center_vertical"
+
+                />
+        </TableRow>
+    </TableLayout>
+
+
+
+
+
+</RelativeLayout>

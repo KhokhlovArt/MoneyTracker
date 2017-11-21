@@ -7,10 +7,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.khokhlovart_loftschool.moneytracker.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loading_layout">
+        <ProgressBar
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></ProgressBar>
+    </LinearLayout>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/items_recycler_view"
             android:scrollbars="vertical"
